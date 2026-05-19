@@ -167,10 +167,10 @@ The listener implementation (`src/adsp_default_listener.c`):
 - **CPU usage**: Event-driven, blocks waiting for DSP callbacks. Negligible CPU consumption except when processing DSP exceptions or log messages.
 
 **When to run:**
-- **Development/debugging**: Always recommended - static PD errors otherwise disappear silently
-- **Production**: Recommended if static PD exception visibility is needed
+- **Development/debugging**: Always recommended - dynamic PD exception logs disappear if root PD daemon is not run for that DSP
+- **Production**: Recommended to run root PD daemon if dynamic PD exception visibility is needed
 - **Resource-constrained**: Can safely omit if not using that DSP and logs aren't critical
-- **Note**: Omitting the daemon doesn't break application functionality, only static PD observability
+- **Note**: Omitting the root PD daemon does not break application functionality, only dynamic PD exception visibility. Static PD daemons (like audiopd) are still needed if their specific functionality (file operations, memory allocation) is required.
 
 ## Container Considerations
 
