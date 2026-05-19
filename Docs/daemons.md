@@ -96,16 +96,19 @@ Daemons can connect to different static protection domains (PDs) on the DSP:
   - Attaches to the DSP Root PD (Guest OS - typically QuRT, the Qualcomm
     Real-Time OS running on the DSP) and acts as the default listener for
     reverse-RPC
-  - Provides file operations and dynamic-loading support used by components that
-    run in Root PD
-  - Routes Root PD exception logs to syslog (critical for debugging PD crashes)
+  - Provides file operations for components running in Root PD (dlopen is
+    not supported on root PD due to security constraints; only file
+    operations are permitted)
+  - Routes dynamic PD exception logs to syslog (the primary client-facing
+    use case)
+  - Other use cases involve internal functionalities required by the
+    FastRPC framework operating within the root PD on the DSP
   - Helps create/maintain Root PD process context (FastRPC does this automatically)
 - **Services provided**:
   - Exception logging via `adspmsgd` framework (see [adspmsgd.md](adspmsgd.md))
   - Remote file system access via `apps_std` interface
-  - Dynamic loading support (dlopen/dlsym/dlclose)
 - **If not running**:
-  - Root PD features that rely on file I/O or dynamic loading from HLOS will fail
+  - Root PD features that rely on file I/O from HLOS will fail
   - Preload features may not work
   - Root PD-side reverse-RPC requests will time out
   - Exception logs from Root PD are lost
