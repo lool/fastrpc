@@ -70,8 +70,9 @@ The daemon acts as a privileged system process that:
 
 **What works with daemons enabled:**
 - All basic FastRPC operations (same as without daemon)
-- Static PD exception messages forwarded to system logs - critical for
-  debugging crashes
+- Dynamic PD exception messages forwarded to system logs - critical for
+  debugging crashes (exception logging is only supported for dynamic PDs
+  by root PD daemons)
 - Static PD FARF log output visible in dmesg/syslog
 - Static PDs can open files on APPS filesystem (e.g., loading
   configuration files)
