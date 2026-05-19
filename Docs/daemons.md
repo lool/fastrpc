@@ -31,7 +31,16 @@ sensors PD). Note that dynamic PDs can still perform these operations
 using their corresponding APPS (Application Processor Subsystem) process.
 
 - DSP static PD exceptions and crashes are silent - no error messages
-  appear in system logs
+  appear in system logs. When a dynamic user PD running on the DSP
+  crashes, its exception handler sends all crash-related information to
+  the root PD on the DSP before termination. The root PD then forwards
+  this information to the root PD daemon, which logs it in the system log
+  (syslog). Logging user PD exception details to syslog is supported only
+  for dynamic user PDs by the corresponding root daemon for the DSP (for
+  example, adsprpcd for aDSP and cdsprpcd for CDSP). This feature is not
+  available for static PDs. By default, a crash in a static PD results in
+  a DSP crash. On systems that support PDR for static PDs, the static PD
+  is restarted instead.
 - Static PDs cannot call back to system services on APPS (no reverse RPC
   for system services)
 - Static PDs cannot request additional memory from APPS heap
