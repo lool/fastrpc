@@ -57,8 +57,7 @@ The daemon acts as a privileged system process that:
 2. **Implements reverse RPC handlers for static PDs**: Provides skel
    implementations for DSP-to-APPS interfaces:
    - `adspmsgd` - DSP message logging interface
-   - `apps_std` - File I/O operations (fopen, fread, fwrite, etc.,
-     dlopen, dlsym, dlclose)
+   - `apps_std` - File I/O operations (fopen, fread, fwrite, etc.)
    - `apps_mem` - Dynamic memory allocation from APPS (remote heap
      growth, CMA donation)
 3. **Forwards DSP logs**: Receives FARF messages from DSP and writes
@@ -78,7 +77,6 @@ The daemon acts as a privileged system process that:
   configuration files)
 - Static PDs can request additional heap memory from APPS (audio PD use
   case)
-- Static PDs can perform dynamic loading of modules
 
 **Important note**: Application code doesn't need to know if daemons are
 running. The difference is observable only in static PD logging and
